@@ -13,15 +13,15 @@ int main() {
         system("clear");  // Limpa a tela para reescrevê-la, como uma animação.
 
         // Menu
-        printf("======================\n");
-        printf("== Caixa: R$ %5.2f ==\n", cash);  // Mostra o dinheiro no caixa com aproximação de duas casas decimais
-        printf("======================\n");
-        printf("======== Menu ========\n");
+        printf("==========================\n");
+        printf("==== Caixa: R$ %.2f ====\n", cash);  // Mostra o dinheiro no caixa com aproximação de duas casas decimais
+        printf("==========================\n");
+        printf("========== Menu ==========\n");
         printf("1 - Comprar produtos\n");
         printf("2 - Vender produtos\n");
         printf("3 - Listar estoque\n");
         printf("4 - Sair\n");
-        printf("======================\n");
+        printf("==========================\n");
 
         while (1) {
             printf("Opção: ");
@@ -29,11 +29,11 @@ int main() {
 
             switch (key_option) {
             case 1:  // Comprando
-                printf("======= Comprar ======\n");
-                printf("1 - Tomate:   R$ %.2f\n", price_tomato);
-                printf("2 - Banana:   R$ %.2f\n", price_banana);
-                printf("3 - Maçã:     R$ %.2f\n", price_apple);
-                printf("======================\n");
+                printf("========= Comprar ========\n");
+                printf("1 - Tomate:        R$ %.2f\n", price_tomato);
+                printf("2 - Banana:        R$ %.2f\n", price_banana);
+                printf("3 - Maçã:          R$ %.2f\n", price_apple);
+                printf("==========================\n");
 
                 /*
                 Inicia-se um novo laço "infinito" onde:
@@ -61,55 +61,67 @@ int main() {
 
                     switch (item_key) {
                     case 0:
-                        printf("Compra cancelada com sucesso.");
+                        printf("Compra cancelada com sucesso.\n");
                         break;
 
                     case 1:
+                        printf("[Fruta: Tomate]\n");
                         while (1) {
                             printf("Número de itens: ");
                             scanf("%d", &items);
 
-                            if (items*price_tomato > cash) {
-                                printf("Opção inválida: Dinheiro insufinte. Tente novamente.\n");
+                            if (items < 0) {
+                                printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
+                                continue;
+                            } else if (items*price_tomato > cash) {
+                                printf("Opção inválida: Dinheiro insufinte [Máx: %.0f].\nTente novamente.\n", cash/price_tomato);
                                 continue;
                             } else {
                                 cash = cash - items*price_tomato;
                                 stock_tomato = stock_tomato + items;
-                                printf("Compra realizada com sucesso! [%d tomates]\n", items);
+                                printf("\nCompra realizada com sucesso! [%d tomates]\n", items);
                             }
                             break;
                             }
                         break;
                     
                     case 2:
+                        printf("[Fruta: Banana]\n");
                         while (1) {
                             printf("Número de itens: ");
                             scanf("%d", &items);
 
-                            if (items*price_banana > cash) {
-                                printf("Opção inválida: Dinheiro insufinte [M]. Tente novamente.\n");
+                            if (items < 0) {
+                                printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
+                                continue;
+                            } else if (items*price_banana > cash) {
+                                printf("Opção inválida: Dinheiro insufinte [Máx: %.0f].\nTente novamente.\n", cash/price_banana);
                                 continue;
                             } else {
                                 cash = cash - items*price_banana;
                                 stock_banana = stock_banana + items;
-                                printf("Compra realizada com sucesso![%d bananas]\n", items);
+                                printf("\nCompra realizada com sucesso![%d bananas]\n", items);
                             }
                             break;
                         }
                         break;
 
                     case 3:
+                        printf("[Fruta: Maçã]\n");
                         while (1) {
                             printf("Número de itens: ");
                             scanf("%d", &items);
                             
-                            if (items*price_apple > cash) {
-                                printf("Opção inválida: Dinheiro insufinte. Tente novamente.\n");
+                            if (items < 0) {
+                                printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
+                                continue;
+                            } else if (items*price_apple > cash) {
+                                printf("Opção inválida: Dinheiro insufinte [Máx: %.0f].\nTente novamente.\n", cash/price_apple);
                                 continue;
                             } else {
                                 cash = cash - items*price_apple;
                                 stock_apple = stock_apple + items;
-                                printf("Compra realizada com sucesso! [%d maçãs]\n", items);
+                                printf("\nCompra realizada com sucesso! [%d maçãs]\n", items);
                             }
                             break;
                         }
@@ -124,11 +136,11 @@ int main() {
                 break;
 
             case 2:  // Vendendo
-                printf("======= Vender =======\n");
-                printf("1 - Tomate: R$ %.2f\n", 2 * price_tomato);
-                printf("2 - Banana: R$ %.2f\n", 2 * price_banana);
-                printf("3 - Maçã:   R$ %.2f\n", 2 * price_apple);
-                printf("======================\n");
+                printf("========= Vender =========\n");
+                printf("1 - Tomate:    R$ %.2f\n", 2 * price_tomato);
+                printf("2 - Banana:    R$ %.2f\n", 2 * price_banana);
+                printf("3 - Maçã:      R$ %.2f\n", 2 * price_apple);
+                printf("==========================\n");
 
                 /*
                 Inicia-se um novo laço "infinito" onde:
@@ -153,20 +165,24 @@ int main() {
                     scanf("%d", &item_key);
                     switch (item_key) {
                     case 0:
-                        printf("Compra cancelada com sucesso.");
+                        printf("Compra cancelada com sucesso.\n");
                         break;
 
                     case 1:  // Vendendo tomates
+                        printf("[Fruta: Tomate]\n");
                         while (1) {
                             // Recebe a quantidade de itens
                             printf("Número de itens: ");
                             scanf("%d", &items);
+                            if (items < 0) {
+                                printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
+                                continue;
                             // Verifica se há estoque suficiente para serem vendidos e mostra o máximo possível se não
-                            if (items > stock_tomato) {
-                                printf("Opção inválida: Estoque insufinte [%d]. Tente novamente.\n", stock_tomato);
+                            } else if (items > stock_tomato) {
+                                printf("Opção inválida: Estoque insufinte [%d em estoque].\nTente novamente.\n", stock_tomato);
                                 continue;
                             } else {
-                                printf("Venda realizada com sucesso! [%d tomates]\n", items);
+                                printf("\nVenda realizada com sucesso! [%d tomates]\n", items);
                                 cash = cash + 2*items*price_tomato;
                                 stock_tomato = stock_tomato - items;
                             }
@@ -175,15 +191,19 @@ int main() {
                         break;
                     
                     case 2:  // Vendendo bananas
+                        printf("[Fruta: Banana]\n");
                         while (1) {
                             printf("Número de itens: ");
                             scanf("%d", &items);
 
-                            if (items > stock_banana) {
-                                printf("Opção inválida: Estoque insufinte [%d]. Tente novamente.\n", stock_banana);
+                            if (items < 0) {
+                                printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
+                                continue;
+                            } else if (items > stock_banana) {
+                                printf("Opção inválida: Estoque insufinte [%d em estoque].\nTente novamente.\n", stock_banana);
                                 continue;
                             } else {
-                                printf("Venda realizada com sucesso! [%d bananas]\n", items);
+                                printf("\nVenda realizada com sucesso! [%d bananas]\n", items);
                                 cash = cash + 2*items*price_banana;  // Vende as bananas pelo dobro do preço
                                 stock_banana = stock_banana - items;  // Retira a quantidade de itens vendidos do estoque
                             }
@@ -192,15 +212,19 @@ int main() {
                         break;
                     
                     case 3:  // Vendendo maçãs
+                        printf("[Fruta: Maçã]\n");
                         while (1) {
                             printf("Número de itens: ");
                             scanf("%d", &items);
 
-                            if (items > stock_apple) {
-                                printf("Opção inválida: Estoque insufinte [%d]. Tente novamente.\n", stock_apple);
+                            if (items < 0) {
+                                printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
+                                continue;
+                            } else if (items > stock_apple) {
+                                printf("Opção inválida: Estoque insufinte [%d em estoque].\nTente novamente.\n", stock_apple);
                                 continue;
                             } else {
-                                printf("Venda realizada com sucesso! [%d maçãs]\n", items);
+                                printf("\nVenda realizada com sucesso! [%d maçãs]\n", items);
                                 cash = cash + 2*items*price_apple;
                                 stock_apple = stock_apple - items;
                             }
@@ -217,18 +241,18 @@ int main() {
                 break;
             
             case 3:  // Listando o estoque
-                printf("===== Em Estoque =====\n");
-                printf("Tomates:          %d\n", stock_tomato);
-                printf("Bananas:          %d\n", stock_banana);
-                printf("Maçãs:            %d\n", stock_apple);
-                printf("======================\n");
+                printf("======= Em Estoque =======\n");
+                printf("Tomates:             %d\n", stock_tomato);
+                printf("Bananas:             %d\n", stock_banana);
+                printf("Maçãs:               %d\n", stock_apple);
+                printf("==========================\n");
                 break;
 
             case 4:  // Saindo
-                printf("==== Tem certeza? ====\n");
+                printf("====== Tem certeza? ======\n");
                 printf("1 - Sim\n");
                 printf("2 - Não\n");
-                printf("======================\n");
+                printf("==========================\n");
                 
                 while (1) {
                     printf("Opção: ");
@@ -236,12 +260,12 @@ int main() {
 
                     switch (quit) {
                     case 1:  // Se sim
-                        printf("======= Adeus! =======\n");
+                        printf("========= Adeus! =========\n");
                         return 0;  // Sai do método main retornado 0 e fechando o programa
                         break;
                     
                     case 2:  // Se não, simplesmente não faz nada, sai do switch e então segue para o laço principal
-                        printf("=== Continuando... ===\n");
+                        printf("===== Continuando... =====\n");
                         break;
 
                     default:  // Código inválido
@@ -263,7 +287,7 @@ int main() {
             }
             break;
         }
-        printf("Pressione qualquer teçla para continuar ...");  // Assim pode ser compilado no linux e mac também
+        printf("\nPressione Enter para continuar ...");  // Assim pode ser compilado no linux e mac também
         getchar(); getchar();  // Simula o pause do windows, tanto nele mesmo quanto em outros sistemas
     }
     return 0;
