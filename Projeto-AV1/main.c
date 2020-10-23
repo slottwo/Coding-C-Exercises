@@ -1,20 +1,12 @@
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
-/*
-#ifdef WIN32
-#define PAUSE 1
-#else
-#define PAUSE 0
-#endif
-*/
-
 
 int main() {
     // Entradas do usuário: Opção no menu, itens comprados, item selecionado, sair do programa
     int key_option, item_key, items, quit;
     int stock_apple = 0, stock_tomato = 0, stock_banana = 0;  // Quantidade de produtos em estoque
-    float cash = 100.0, price_apple = 1.0, price_tomato = 2.0, price_banana = 1.5;  // Preço dos produtos
+    float cash = 100.0, price_tomato = 2.0, price_banana = 1.5, price_apple = 1.0;  // Preço dos produtos
     setlocale(LC_ALL, "Portuguese");
     
     while (1) {  // 1º laço, roda o programa "infinitas" vezes até que o usurário peça para sair.
@@ -43,11 +35,35 @@ int main() {
                 printf("3 - Maçã:     R$ %.2f\n", price_apple);
                 printf("======================\n");
 
+                /*
+                Inicia-se um novo laço "infinito" onde:
+                    Recebe-se o código do item a ser comprado (0 cancela)
+                    E para cada caso no switch (número chave de cada item)
+                    Inicia-se um outro laço infinito dentro deste
+                        Pega a quantidade de itens do produto a ser comprado
+                        Verifica se o preço total excede o dinheiro em caixa do usuário:
+                            Se sim:
+                                Mostra uma mensagem de erro e qual o máximo possível pra se comprar
+                                E então continua o loop do começo fazendo com que o usuário digite novamente um valor para items
+                            Se não:
+                                Mostra uma mensagem de sucesso e quantos e quais itens foram comprados
+                                Subtrai o valor no caixa pelo preço de compra e soma a quantidade de itens do estoque
+                            Em seguida o laço para
+                        Se o item_key inserido não for válido o programa avisa ao usuário e 
+                        reinicia o loop ignorando, o resto dele, para que seja requerido um novo item_key válido
+                        O laço quebra
+                Após a compra ser executada (mesmo que tenha sido de 0 itens) o laço para e o código segue para fora do switch
+                */
+                
                 while (1) {
-                    printf("Item a comprar: ");
+                    printf("Item a comprar: [Cancelar: 0] ");
                     scanf("%d", &item_key);
 
                     switch (item_key) {
+                    case 0:
+                        printf("Compra cancelada com sucesso.");
+                        break;
+
                     case 1:
                         while (1) {
                             printf("Número de itens: ");
@@ -102,7 +118,6 @@ int main() {
                     default:
                         printf("Opção inválida: Item não encontrado. Tente novamente.\n");
                         continue;
-                        break;
                     }
                     break;
                 }
@@ -115,23 +130,32 @@ int main() {
                 printf("3 - Maçã:   R$ %.2f\n", 2 * price_apple);
                 printf("======================\n");
 
-                while (1) {
-                    printf("Item a vender: ");
-                    scanf("%d", &item_key);
-                    switch (item_key) {
-                    /*
-                    Para cada caso (número chave de cada item)
-                        Pega a quantidade de itens daquele produtos a serem vendidos
+                /*
+                Inicia-se um novo laço "infinito" onde:
+                    Recebe-se o código do item a que deseja comprar (0 cancela)
+                    E para cada caso no switch (número chave de cada item)
+                    Inicia-se um outro laço infinito dentro deste
+                        Pega a quantidade de itens do produto a ser vendido
                         Verifica se ela excede o estoque:
                             Se sim:
                                 Mostra uma mensagem de erro e qual o máximo possível
-                                E então continua o loop do começo fazendo com que o usuário digite novamente um valor para item_key
+                                E então continua o loop do começo fazendo com que o usuário digite novamente um valor para items
                             Se não:
                                 Mostra uma mensagem de sucesso e quantos e quais itens foram comprados
                                 Aumenta o caixa vendendo o item pelo dobro do preço de compra e subtrai a quantidade de itens do estoque
-                            Em seguida o laço acaba
-                    */
-                    
+                            Em seguida o laço para
+                        Para um caso não esperado imprimir uma mensagem de erro e recomeça o laço ignorando o resto do laço
+                        Após a venda ser executada (mesmo que tenha sido de 0 itens) o laço para
+                */
+
+                while (1) {
+                    printf("Item a vender: [Cancelar: 0] ");
+                    scanf("%d", &item_key);
+                    switch (item_key) {
+                    case 0:
+                        printf("Compra cancelada com sucesso.");
+                        break;
+
                     case 1:  // Vendendo tomates
                         while (1) {
                             // Recebe a quantidade de itens
@@ -185,9 +209,9 @@ int main() {
                         break;
 
                     default:
-                        break;
+                        printf("Opção inválida: Item não encontrado. Tente novamente.\n");
+                        continue;
                     }
-
                     break;
                 }
                 break;
@@ -213,36 +237,33 @@ int main() {
                     switch (quit) {
                     case 1:  // Se sim
                         printf("======= Adeus! =======\n");
-                        pause();
                         return 0;  // Sai do método main retornado 0 e fechando o programa
                         break;
                     
-                    case 2:  // Se não
-                        // Simplesmente não faz nada, sai do switch e então segue para o laço principal
-                        printf("=== Continuando... ===");
+                    case 2:  // Se não, simplesmente não faz nada, sai do switch e então segue para o laço principal
+                        printf("=== Continuando... ===\n");
                         break;
 
                     default:  // Código inválido
-                        printf("Opção Inválida: Inexistente. \nTente novamente.");
+                        printf("Opção Inválida: Inexistente. \nTente novamente.\n");
                         continue;
-                        // Faz com que o código volte pra o início deste laço onde vai pedir novamente o valor de quit
-                        // Se não houvesse este continue, o programa executaria o ultimo comando deste loop, que é break, 
-                        // sairia do mesmo sem pedir novamente a opção do usuário sobre sair ou continuar
-                        break;
+                        /*
+                        Faz com que o código volte pra o início deste laço onde vai pedir novamente o valor de quit
+                        Se não houvesse este continue, o programa executaria o ultimo comando deste loop, que é break, 
+                        sairia do mesmo sem pedir novamente a opção do usuário sobre sair ou continuar
+                        */
                     }
                     break;
                 }
+                break;
             
             default: // Código inválido
                 printf("Opção inválida: Inexistente. \nTente novamente.\n");
                 continue;
-                break;
             }
-
-            pause();
             break;
         }
-        printf("Pressione qualquer teçla para continuar ...\n");  // Assim pode ser compilado no linux e mac também
+        printf("Pressione qualquer teçla para continuar ...");  // Assim pode ser compilado no linux e mac também
         getchar(); getchar();  // Simula o pause do windows, tanto nele mesmo quanto em outros sistemas
     }
     return 0;
