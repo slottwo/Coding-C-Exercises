@@ -1,6 +1,5 @@
 #include <locale.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 int main() {
     // Entradas do usuário: Opção no menu, itens comprados, item selecionado, sair do programa
@@ -74,7 +73,7 @@ int main() {
                                 printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
                                 continue;
                             } else if (items*price_tomato > cash) {
-                                printf("Opção inválida: Dinheiro insufinte [Máx: %.0f].\nTente novamente.\n", cash/price_tomato);
+                                printf("Opção inválida: Dinheiro insufinte [Máx: %d].\nTente novamente.\n",  (int) (cash/price_tomato)); // (int) para não arredondar para cima
                                 continue;
                             } else {
                                 cash = cash - items*price_tomato;
@@ -95,7 +94,7 @@ int main() {
                                 printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
                                 continue;
                             } else if (items*price_banana > cash) {
-                                printf("Opção inválida: Dinheiro insufinte [Máx: %.0f].\nTente novamente.\n", cash/price_banana);
+                                printf("Opção inválida: Dinheiro insufinte [Máx: %d].\nTente novamente.\n", (int) (cash/price_banana));
                                 continue;
                             } else {
                                 cash = cash - items*price_banana;
@@ -116,7 +115,7 @@ int main() {
                                 printf("Opção inválida: Quantidade inválida [Insira um número natural].\nTente novament.\n");
                                 continue;
                             } else if (items*price_apple > cash) {
-                                printf("Opção inválida: Dinheiro insufinte [Máx: %.0f].\nTente novamente.\n", cash/price_apple);
+                                printf("Opção inválida: Dinheiro insufinte [Máx: %d].\nTente novamente.\n", (int) (cash/price_apple));
                                 continue;
                             } else {
                                 cash = cash - items*price_apple;
