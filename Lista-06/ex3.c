@@ -6,49 +6,45 @@
 e imprima o maior elemento de cada coluna da matriz
 */
 
-int max(int n, int nums[n])
-{
-    int m = 0;
-    for (int i = 0; i < n; i++)
-    {
-        if (m < nums[i])
-        {
-            m = nums[i];
-        }
-    }
-    
-    return m;
-}
-
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    int n, f1 = 0, f2 = 1, aux;
-    printf("Insira o tamanho da matriz: ");
-    scanf("%d", &n);
-    int matriz[n][n], matriz_T[n][n];
-    for(int i = 0; i < n; i++)
+    
+    int N;
+    
+    printf("Insira o tamanho da matriz quadrada: ");
+    scanf("%d", &N);
+
+    int max_Columns[N], matriz[N][N];
+
+    for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < n; j++)
+        max_Columns[N] = 0;
+    }
+    
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
         {
-            aux = f2;
-            f2 = f1 + f2;
-            f1 = aux;
-            matriz[i][j] = f1;
-            printf("%d ", f1);
+            printf("(%d,%d): ", i+1, j+1);
+            scanf("%d", &matriz[i][j]);
         }
-        printf("\n");
+    }
+    
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (max_Columns[j] < matriz[i][j])
+            {
+                max_Columns[j] = matriz[i][j];
+            }
+        }
     }
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < N; i++)
     {
-        for (int j = 0; j < n; j++)
-        {
-            matriz_T[i][j] = matriz[j][i];
-            //printf("%d ", matriz_T[i][j]);
-        }
-        // printf("\n");
-        printf("Linha %d: %d\n", i, max(n, matriz_T[i]));
+        printf("Column %d: %d\n", i+1, max_Columns[i]);
     }
 
     return 0;

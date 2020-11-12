@@ -19,32 +19,34 @@ int main()
 
     int matriz[l][c], matriz_T[c][l];
     
+    printf("Insira os elementos da sua matriz %dx%d.\n", l, c);
+
+    for (int i = 0; i < l; i++)
+    {
+        for (int j = 0; j < c; j++)
+        {
+            printf("Elemento (%d,%d): ", i+1, j+1);
+            scanf("%d", &matriz[i][j]);
+        }
+    }
+
     printf("Matriz:\n");
 
     for (int i = 0; i < l; i++)
     {
         for (int j = 0; j < c; j++)
         {
-            if ((i+1)*10+(j+1) < 100)
+            if (matriz[i][j] < 100)
             {
-                if ((i+1)*10+(j+1) < 10)
+                if (matriz[i][j] < 10)
                 {
                     printf(" ");
                 }
                 printf(" ");
             }
-            matriz[i][j] = (i+1)*10+(j+1);
-            printf("%d ", (i+1)*10+(j+1));
+            printf("%d ", matriz[i][j]);
         }
         printf("\n");
-    }
-
-    for (int i = 0; i < c; i++)
-    {
-        for (int j = 0; j < l; j++)
-        {
-            matriz_T[i][j] = matriz[j][i];
-        }
     }
 
     printf("\nMatriz transposta:\n");
@@ -52,6 +54,7 @@ int main()
     {
         for (int j = 0; j < l; j++)
         {
+            matriz_T[i][j] = matriz[j][i];
             if (matriz[i][j] < 100)
             {
                 if (matriz_T[i][j] < 10)
