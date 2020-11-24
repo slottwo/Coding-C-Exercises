@@ -1,11 +1,9 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include <locale.h>
-
+#include <stdio.h>
 
 /*
-1. Dada a sequência de Fibonacci, faça uma função recursiva que receba um parâmetro 
-inteiro x e retorne o número da sequência na posição x.
+1. Dada a sequência de fibonacci [1,1,2,3,5,8,13,21,34,55...], faça uma função que tenha como 
+parâmetro um inteiro n e que retorna o número da sequência de Fibonacci que está na posiçãon.
 */
 
 int fib(int x)
@@ -19,8 +17,10 @@ int fib(int x)
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
+    
     int i;
     scanf("%d", &i);
     printf("%d\n", fib(i));
+    
     return 0;
 }
